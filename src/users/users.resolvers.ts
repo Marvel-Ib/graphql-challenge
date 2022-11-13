@@ -1,24 +1,26 @@
 // users.resolvers.ts
 
 import { Query, Resolver, Mutation, Arg } from 'type-graphql';
-import { accountInput, User } from './users.schema';
+import { accountInput, User, createUserInput } from './users.schema';
+import UserService from '../service/user.service';
 
 @Resolver(() => User)
 export class UsersResolver {
-  private users: User[] = [
-    { id: 1, name: 'John Doe', isVerified: false },
-    { id: 2, name: 'Jane Doe', isVerified: false },
-    { id: 3, name: 'Mike Doe', isVerified: false },
-  ];
+  constructor(private userService: UserService) {
+    this.userService = new UserService();
+  }
 
   @Query(() => [User])
   async getUsers(): Promise<User[]> {
-    return this.users;
+    return this.userService.getUsers();
   }
 
   @Mutation(() => User)
-  async createUser(@Arg('input') input: accountInput): Promise<User> {
-    console.log('verify user account');
-    return { id: 1, name: 'baba riga', isVerified: false };
+  async createUserInput(@Arg('input') input: createUserInput): Promise<User> {
+    const user = {
+      name: input.username,
+      isVerified: false,
+    };
+    return this.userService.createUser(user);
   }
 }
