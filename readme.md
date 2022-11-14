@@ -1,5 +1,5 @@
 # Graphql 
-
+* [LiveUrl](https://stormy-tiger-production.up.railway.app/graphql/)
 ## notes
 
 ### What technology am i using?
