@@ -19,8 +19,10 @@
 * had to look for another api and utilize it: https://maylancer.org/api/nuban/
 * this api returns account full name in this order : [surname] [first name] [middle name]
 
-###  Levenshtein Distance algorithm more effective than Damerau–Levenshtein Distance algorithm
-* update needed 
+###  Levenshtein Distance algorithm more effective than Damerau–Levenshtein Distance algorithm in account name scenario 
+* We are trying to ensure that if there was a small error during data entry we are still able to still resolve names 
+* levenshetein distance operations (insertions, deletions or substitutions, of single characters) is more than enough to detect this small errors 
+* using damerau-levenshtein algorithm will be an overkill ( if there is a case we have to use it to get a number less than 3 then that definitely means there is a big error in the names 
 
 ---
 
