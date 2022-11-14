@@ -4,21 +4,36 @@
 # -----------------------------------------------
 
 type Mutation {
-  createUser(input: accountInput!): User!
+  createUserInput(input: createUserInput!): User!
+  verifyUserAccount(input: accountInput!): accountDetails!
 }
 
 type Query {
+  getAccountName(input: accountNameInput!): accountDetails!
   getUsers: [User!]!
 }
 
 type User {
-  id: Float!
   isVerified: Boolean!
-  name: String!
+  username: String!
+}
+
+type accountDetails {
+  accountName: String!
+  bankAccountNumber: String!
 }
 
 input accountInput {
-  accountName: String!
-  bankAccountNumber: String!
-  bankName: String!
+  accountName: String
+  bankAccountNumber: String
+  bankCode: String
+}
+
+input accountNameInput {
+  bankAccountNumber: String
+  bankCode: String
+}
+
+input createUserInput {
+  username: String!
 }

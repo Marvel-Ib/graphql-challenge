@@ -6,8 +6,8 @@ import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 
 import { UsersResolver } from './users/users.resolvers';
-import { flutterwave } from './service/flutterwave';
 import mongoose from 'mongoose';
+import { AccountResolver } from './accounts/account.resolvers';
 
 export async function connectToMongo() {
   try {
@@ -23,17 +23,12 @@ async function main() {
   await connectToMongo();
 
   const schema = await buildSchema({
-    resolvers: [UsersResolver],
+    resolvers: [UsersResolver, AccountResolver],
     emitSchemaFile: true,
   });
 
   const app = express();
 
-  app.get('/jade', async (req, res) => {
-    const payreq = new flutterwave();
-    let banks = await payreq.listBanks();
-    return res.send(banks);
-  });
   app.use(
     '/graphql',
     graphqlHTTP({
